@@ -12,7 +12,6 @@ description: |
 
 Generate polished, brand-consistent presentations and reports,
 grounded in the visual identity extracted from any reference PowerPoint file.
-
 ---
 
 ## Invocation Checklist
@@ -231,7 +230,7 @@ Before touching any file, ask the user:
 
 #### Visual Requirements
 - [ ] **Text is readable** — font colors extracted from the theme, not default black on dark backgrounds`
-- [ ] **Text size appropriate** — readable in presentation mode, not too small
+- [ ] **Text size appropriate and color is brand consistent** — readable in presentation mode, not too small
 - [ ] **Brand colors applied** — text uses extracted brand colors, not default black
 - [ ] **Consistent fonts** — all text uses fonts from the extracted theme
 - [ ] **No placeholder errors** — all placeholders either filled or properly removed
