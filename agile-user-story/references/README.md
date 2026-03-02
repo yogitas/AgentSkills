@@ -13,7 +13,7 @@ It is intentionally separate from `SKILL.md` so that:
 
 ### `examples/`
 Pre-built `USER_CONFIG` blocks for common product domains.
-Pick the one closest to your product, copy it into your Claude instructions, and customise.
+Pick the one closest to your product, copy it into your AI agent's custom instructions (see `SKILL.md` for agent-specific setup steps), and customise.
 
 | File | Best for |
 |------|----------|

@@ -1,9 +1,5 @@
 # 📖 Agile User Story Writer — SKILL.md
 
-**Author:** [Your Name / LinkedIn Handle]
-**Version:** 1.1.0
-**Repository:** https://github.com/yogitas/AgentSkills
-**License:** MIT
 
 ---
 
@@ -52,12 +48,12 @@ Every story produced by this skill **must follow this exact structure**:
 
 Context bullets for developers and designers:
 
-- 🎨 **Design references** — Figma/Zeplin links, design system components
-- 🔗 **APIs / Interfaces** — Existing endpoints or third-party services to use
-- 📋 **Business rules** — Constraints or policies that apply
-- 📁 **Related tickets** — Parent epics, dependencies, related stories
-- 📊 **Data / analytics** — Tracking events or reporting considerations
-- ⚙️ **Technical notes** — Relevant architectural decisions or patterns to follow
+- **Design references** — Figma/Zeplin links, design system components
+- **APIs / Interfaces** — Existing endpoints or third-party services to use
+- **Business rules** — Constraints or policies that apply
+- **Related tickets** — Parent epics, dependencies, related stories
+- **Data / analytics** — Tracking events or reporting considerations
+- **Technical notes** — Relevant architectural decisions or patterns to follow
 
 > 💡 *Tip for POs: Even partial info here saves time in refinement. Mark unknowns as `[TBD]`.*
 
@@ -67,11 +63,11 @@ Context bullets for developers and designers:
 
 Questions to spark discussion at the **refinement meeting**:
 
-- ❓ [Edge case or user flow question]
-- ❓ [Design or UX decision question]
-- ❓ [Scope boundary question]
-- ❓ [Data, permissions, or state question]
-- ❓ [Technical approach or constraint question]
+- [Edge case or user flow question]
+- [Design or UX decision question]
+- [Scope boundary question]
+- [Data, permissions, or state question]
+- [Technical approach or constraint question]
 
 > 💡 *Tip for POs: Share these before refinement so your team comes prepared.*
 
@@ -94,28 +90,86 @@ Draft AC from the **user's perspective** — update and finalise during refineme
 
 What is explicitly **NOT** in this story:
 
-- ❌ [Feature or behaviour excluded]
-- ❌ [Related functionality deferred to a later story]
-- ❌ [Technical work belonging in a separate ticket]
+- [Feature or behaviour excluded]
+- [Related functionality deferred to a later story]
+- [Technical work belonging in a separate ticket]
 
 ---
 
-## ⚙️ Configuration Guide for POs
+## ⚙️ Configuration Guide
 
-> 📌 **Where to paste this config — pick whichever matches how you use Claude:**
->
-> - **Claude.ai (simplest):** Go to **Settings → Custom Instructions** → paste into the *"How should Claude respond?"* box. Done. No installs needed.
-> - **Claude Projects:** Open your Project → **Instructions** tab → paste there. All chats inside that project will use it automatically.
-> - **Claude API / developer setup:** Paste into your `system` prompt field.
->
-> A single paste is all it takes. No code, no installs required.
+This skill works with **any AI agent** that supports custom instructions or system prompts.
+Pick your agent below for specific setup steps, then fill in the `USER_CONFIG` block with your project details.
+
+---
+
+### 🤖 Agent Setup Instructions
+
+#### GitHub Copilot (VS Code)
+
+**Option A — Repository-level (recommended for teams):**
+
+1. In the root of your repository, create the file `.github/copilot-instructions.md`
+2. Paste the `USER_CONFIG` block (below) into that file
+3. Copilot Chat will automatically apply these instructions for all conversations in that repo
+
+> ℹ️ This file is version-controlled — your whole team shares the same config automatically with no extra setup.
+
+**Option B — User-level (applies to all repos in VS Code):**
+
+1. Open VS Code Settings (`Ctrl+,` on Windows / `Cmd+,` on Mac)
+2. Search for `github.copilot.chat.codeGeneration.instructions`
+3. Click **"Edit in settings.json"** and add your config:
+
+```json
+"github.copilot.chat.codeGeneration.instructions": [
+  {
+    "text": "<paste the full USER_CONFIG block here>"
+  }
+]
+```
+
+> ✅ **Example prompt after setup:**
+> Open GitHub Copilot Chat (`Ctrl+Alt+I`) and type:
+> *"Write a user story for: shoppers want to filter products by price range"*
+
+---
+
+#### Claude.ai
+
+1. Go to **Settings → Custom Instructions**
+2. Paste the `USER_CONFIG` block into the *"How should Claude respond?"* field
+3. Save — every new conversation will use this configuration
+
+> ✅ **Example prompt:** *"Write a user story for: users want to reset their password via email"*
+
+---
+
+#### Claude Projects
+
+1. Open your Project → **Instructions** tab
+2. Paste the `USER_CONFIG` block there
+3. All chats inside that project use it automatically
+
+> ✅ Best for teams — share one Project with your squad so everyone uses the same config.
+
+---
+
+
+#### Any Other Agent (API / Custom Setup)
+
+Paste the `USER_CONFIG` block as the **system prompt** before any user message.
+Any agent that accepts a `system` or `instructions` parameter will work without further changes.
+
+---
 
 Paste the `USER_CONFIG` block below into your chosen location, then fill in your project details:
 
 ```yaml
 # ─────────────────────────────────────────────────────────────
 # USER STORY SKILL — PROJECT CONFIGURATION
-# Paste into Claude Custom Instructions / Project Instructions
+# Paste into your AI agent's custom instructions or system prompt
+# (works with GitHub Copilot, Claude, ChatGPT, or any other agent)
 # and customise the values below for your product
 # ─────────────────────────────────────────────────────────────
 
@@ -233,7 +287,7 @@ Write the full story using the format above. Rules:
 ### Step 3 — Confirm With User
 
 Display the complete story and ask:
-*"Does this look good? Any changes before I push to Jira?"*
+*"Does this look good? Any changes before I finalise or push to Jira?"*
 
 Apply any requested edits, then re-confirm before proceeding.
 
@@ -270,6 +324,7 @@ when they are ready to enable the Jira push.
 
 | Version | Date     | Notes                                                                 |
 |---------|----------|-----------------------------------------------------------------------|
+| 1.2.0   | 2026-03  | Genericised for any AI agent; added GitHub Copilot setup guide        |
 | 1.1.0   | 2026-03  | Added USER_CONFIG paste instructions for non-technical POs            |
 | 1.0.0   | 2026-03  | Initial release — story format, Jira MCP push, configurable examples |
 
