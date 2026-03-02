@@ -1,0 +1,90 @@
+# USER_CONFIG — B2B SaaS / Internal Tools
+# Suitable for: dashboards, admin panels, workflow tools, APIs
+# ─────────────────────────────────────────────────────────────
+# HOW TO USE:
+#   1. Copy everything from the yaml block below
+#   2. Paste into Claude: Settings → Custom Instructions → "How should Claude respond?"
+#      OR into your Claude Project Instructions tab
+#   3. Replace placeholder values with your real project details
+#   4. Replace the example stories with 2–3 real ones from your product
+# ─────────────────────────────────────────────────────────────
+
+project:
+  name: "My SaaS Product"
+  domain: "B2B SaaS"
+  team_size: "6 devs, 1 designer, 1 QA"
+
+personas:
+  - name: "End User"
+    description: "A team member using the product day-to-day within their organisation"
+  - name: "Account Admin"
+    description: "A user with admin rights managing their org's workspace, users, and settings"
+  - name: "Super Admin"
+    description: "An internal employee with full platform access across all accounts"
+  - name: "API Consumer"
+    description: "A developer integrating with the product via API"
+  - name: "Free Tier User"
+    description: "A user on the free plan with limited feature access"
+  - name: "Pro / Paid User"
+    description: "A user on a paid plan with full feature access"
+
+design_references:
+  figma_base_url: "https://www.figma.com/file/REPLACE_WITH_YOUR_FILE_ID"
+  design_system: "Replace with your system — e.g. Radix, shadcn/ui, custom"
+  component_library: "Replace with Storybook link"
+
+jira:
+  enabled: false                             # Set true after Jira MCP setup
+  project_key: "SAAS"                        # Replace with your Jira project key
+  issue_type: "Story"
+  default_epic_link: ""
+  story_points_field: "customfield_10016"    # Verify in your Jira instance
+  labels: ["ai-generated", "needs-refinement", "saas"]
+
+examples:
+  - title: "Account admin can invite team members via email"
+    motivation: >
+      As an account admin, I want to invite team members to my workspace via email
+      so that my colleagues can access the product without needing to sign up manually.
+    relevant_info:
+      - "Design: Figma — Settings > Team > Invite Members modal"
+      - "Invite API: POST /v1/workspaces/{id}/invites — accepts email and role"
+      - "Roles available: Admin, Member, Viewer (see role-permissions.md)"
+      - "Invite emails sent via SendGrid — template already exists"
+      - "Related epic: Team & Workspace Management"
+    open_questions:
+      - "What is the expiry period for invite links — 24 hours, 7 days?"
+      - "Can an admin invite multiple people at once (bulk invite)?"
+      - "What happens if the invitee already has an account on a different workspace?"
+      - "Should admins see invite status (pending / accepted) in the team list?"
+    acceptance_criteria:
+      - "Given I am an account admin, when I enter a valid email and click 'Send Invite', then the invitee receives an email with a signup link"
+      - "Given an invite is sent, when the invitee clicks the link and signs up, then they are added to my workspace with the assigned role"
+      - "Given an invite is pending, when I view the team list, then I see the invitee listed with a 'Pending' status"
+      - "Given an invite link expires, when the invitee clicks it, then they see an error page with an option to request a new invite"
+    out_of_scope:
+      - "SSO / SAML-based provisioning"
+      - "Bulk CSV import of team members"
+      - "Role permission editing (separate settings story)"
+
+  - title: "End user can export their activity report as PDF"
+    motivation: >
+      As an end user, I want to export my activity report as a PDF
+      so that I can share progress with my manager without giving them platform access.
+    relevant_info:
+      - "Design: Figma — Dashboard > Reports > Export button"
+      - "Report data available via GET /v1/users/{id}/activity-summary"
+      - "PDF generation: use existing export service (see internal docs)"
+      - "Date range filter already built — export should respect active filter"
+    open_questions:
+      - "Should the PDF include charts/graphs or data tables only?"
+      - "Do we include the company logo / branding in the exported PDF?"
+      - "What date range should default when no filter is set — last 30 days?"
+    acceptance_criteria:
+      - "Given I am on my activity report page, when I click 'Export PDF', then a PDF downloads to my device"
+      - "Given I have a date filter applied, when I export, then the PDF reflects only the filtered date range"
+      - "Given the report is empty (no activity), when I export, then the PDF includes a 'No activity in this period' message"
+    out_of_scope:
+      - "Scheduled / automated email delivery of reports"
+      - "CSV or Excel export format"
+      - "Team-level or org-wide reports (separate story)"

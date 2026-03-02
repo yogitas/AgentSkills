@@ -1,0 +1,85 @@
+# USER_CONFIG — E-Commerce / Retail
+# Suitable for: online stores, marketplaces, B2C shopping apps
+# ─────────────────────────────────────────────────────────────
+# HOW TO USE:
+#   1. Copy everything from the yaml block below
+#   2. Paste into Claude: Settings → Custom Instructions → "How should Claude respond?"
+#      OR into your Claude Project Instructions tab
+#   3. Replace placeholder values with your real project details
+#   4. Replace the example stories with 2–3 real ones from your product
+# ─────────────────────────────────────────────────────────────
+
+project:
+  name: "My Store"                          # e.g. "FashionHub", "MarketPlace Pro"
+  domain: "e-commerce"
+  team_size: "4 devs, 1 designer, 1 QA"
+
+personas:
+  - name: "Shopper"
+    description: "A logged-in customer browsing and purchasing products"
+  - name: "Guest Shopper"
+    description: "An unauthenticated visitor who hasn't created an account"
+  - name: "Returning Customer"
+    description: "A shopper who has previously purchased and has order history"
+  - name: "Store Admin"
+    description: "An internal team member managing products, orders, and promotions"
+  - name: "Seller / Vendor"
+    description: "A third-party seller listing products (if marketplace model)"
+
+design_references:
+  figma_base_url: "https://www.figma.com/file/REPLACE_WITH_YOUR_FILE_ID"
+  design_system: "Replace with your design system — e.g. Shopify Polaris, custom"
+  component_library: "Replace with your Storybook or component docs link"
+
+jira:
+  enabled: false                             # Set true after Jira MCP setup
+  project_key: "SHOP"                        # Replace with your Jira project key
+  issue_type: "Story"
+  default_epic_link: ""
+  story_points_field: "customfield_10016"    # Verify in your Jira instance
+  labels: ["ai-generated", "needs-refinement", "ecommerce"]
+
+examples:
+  - title: "Shopper can add item to cart from product detail page"
+    motivation: >
+      As a shopper, I want to add an item to my cart from the product detail page
+      so that I can continue browsing and check out when I'm ready.
+    relevant_info:
+      - "Design: Figma — Product Detail Page > Add to Cart button"
+      - "Cart API: POST /v1/cart/items — accepts product_id and quantity"
+      - "Out of stock state handled by GET /v1/products/{id} response field 'in_stock'"
+      - "Related epic: Cart & Checkout"
+    open_questions:
+      - "Should the cart icon in the header update immediately (optimistic UI)?"
+      - "If item already in cart — increment quantity or show a message?"
+      - "Show mini cart drawer on add, or navigate directly to cart page?"
+    acceptance_criteria:
+      - "Given I am on a product detail page, when I click 'Add to Cart', then the item appears in my cart"
+      - "Given the item is out of stock, when I view the page, then Add to Cart is disabled and labelled 'Out of Stock'"
+      - "Given I add an item already in my cart, when I confirm, then the quantity increments by 1"
+    out_of_scope:
+      - "Wishlist / save for later functionality"
+      - "Bundle or upsell suggestions on add"
+      - "Cart persistence across devices"
+
+  - title: "Shopper can apply a discount code at checkout"
+    motivation: >
+      As a shopper, I want to apply a discount code during checkout
+      so that I can reduce my order total using promotions I've received.
+    relevant_info:
+      - "Design: Figma — Checkout Flow > Order Summary > Promo Code field"
+      - "Promo validation: POST /v1/promotions/validate — returns discount amount or error code"
+      - "Codes are case-insensitive per business rules"
+      - "Only one promo code allowed per order (confirmed with business)"
+    open_questions:
+      - "Should the discount show as a line item or percentage off subtotal?"
+      - "What error messages for expired, invalid, or already-used codes?"
+      - "Can store credit and a promo code be combined?"
+    acceptance_criteria:
+      - "Given I am on the checkout page, when I enter a valid code and click 'Apply', then the discount is deducted from my order total"
+      - "Given I enter an invalid or expired code, when I click 'Apply', then I see a clear error message"
+      - "Given a code is applied, when I remove it, then my original order total is restored"
+    out_of_scope:
+      - "Automatic / cart-level promotions (no code required)"
+      - "Multi-code stacking"
+      - "Admin creation or management of promo codes"
