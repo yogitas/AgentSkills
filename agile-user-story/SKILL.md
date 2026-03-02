@@ -320,15 +320,6 @@ when they are ready to enable the Jira push.
 
 ---
 
-## 🔄 Changelog
-
-| Version | Date     | Notes                                                                 |
-|---------|----------|-----------------------------------------------------------------------|
-| 1.2.0   | 2026-03  | Genericised for any AI agent; added GitHub Copilot setup guide        |
-| 1.1.0   | 2026-03  | Added USER_CONFIG paste instructions for non-technical POs            |
-| 1.0.0   | 2026-03  | Initial release — story format, Jira MCP push, configurable examples |
-
----
 
 ## 🤝 Contributing
 

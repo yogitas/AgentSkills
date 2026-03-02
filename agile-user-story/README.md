@@ -202,9 +202,3 @@ See [`references/jira/jira-setup-guide.md`](references/jira/jira-setup-guide.md)
 step-by-step Jira MCP setup, including how to find your custom field IDs.
 
 ---
-
-## 📬 Connect
-
-Built by [@yogitas](https://github.com/yogitas) — part of the *"How to be an AI-Powered PM"* series on LinkedIn.
-
-Give it a ⭐ if it helps your team! PRs welcome — share your domain config by adding a file to `references/examples/`.
